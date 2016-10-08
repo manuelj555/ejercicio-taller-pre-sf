@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container animsition">
+        {% block content %}{% endblock %}        
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('.animsition').animsition({
+            linkElement: 'a:not([target="_blank"]):not([href^="#"])',
+            // inClass: 'fade-in-left',
+            inClass: 'zoom-in-sm',
+            outClass: 'zoom-out-sm',
+            inDuration: 300,
+            outDuration: 200,
+            loading: true,
+            // 
+            // overlay : true,
+            // overlayClass : 'animsition-overlay-slide',
+            // overlayParentElement : 'body'
+        });
+    </script>
+{% endblock %}

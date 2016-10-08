@@ -1,0 +1,10 @@
+{% extends 'layout/frontend.html.twig' %}
+{% use 'product/form.html.twig' %}
+
+{% block content %}
+    {% embed 'default/title.html.twig' %}
+        {% block page_header %}Crear Producto{% endblock %}     
+    {% endembed %}
+
+    {{ block('form') }}
+{% endblock %}

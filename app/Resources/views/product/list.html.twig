@@ -1,0 +1,52 @@
+{% extends 'layout/frontend.html.twig' %}
+
+{% block content %}
+
+    {% embed 'default/title.html.twig' %}
+        {% block page_header %}Listado de Productos{% endblock %}     
+
+        {% block actions %}
+            <a class="btn btn-primary" href="{{ path('product_create') }}" role="button">Crear Producto</a>
+        {% endblock %}   
+    {% endembed %}
+
+    {% include 'default/flashes.html.twig' only %}
+
+    <div class="row">
+        <div class="col-sm-6">
+            {{ knp_pagination_render(products) }}
+        </div>
+        <div class="col-sm-6">
+            {{ include('default/search.html.twig', {url: path('product_list')}) }} 
+        </div>
+    </div>
+
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(products, 'ID', 'product.id') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Código', 'product.code') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Nombre', 'product.name') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Marca', 'product.brand') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Categoría', 'category.id') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Precio', 'product.price') }}</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in products %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.code }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.brand }}</td>
+                    <td>{{ item.category.name }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>
+                        <a href="{{ path('product_edit',{id: item.id}) }}">Editar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

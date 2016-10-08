@@ -1,0 +1,22 @@
+.pagination{
+    margin: 10px 0;
+}
+
+.table th a {
+
+    &::after {
+        font-size: 10px;
+        font-family: 'Glyphicons Halflings';
+        margin-left: 5px;
+        text-decoration: none;
+    }
+    
+    &.asc::after {
+        content: "\e113";
+    }
+
+    &.desc::after {
+        content: "\e114";
+    }
+
+}
