@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Pequeño ejercicio usando Symfony",
   "dependencies": {
-    "animsition": "^4.0.2",
     "bootstrap": "^3.3.7",
-    "jquery": "^3.1.1"
+    "jquery": "^3.1.1",
+    "vue": "^2.0.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

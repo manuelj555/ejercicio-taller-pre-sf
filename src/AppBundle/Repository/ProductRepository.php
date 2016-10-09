@@ -60,4 +60,10 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         $this->_em->persist($product);
         $flush and $this->_em->flush();
     }
+
+    public function remove(Product $product, $flush = true)
+    {
+        $this->_em->remove($product);
+        $flush and $this->_em->flush();
+    }
 }

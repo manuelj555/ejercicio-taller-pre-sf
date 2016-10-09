@@ -9,15 +9,16 @@ var sass = require("gulp-sass");
 //var merge = require("merge-stream");
 
 var dest = './web/build/';
+var isProd = gutil.env.env == 'prod';
 
 gulp.task('js', function () {
     return gulp.src([
        'node_modules/jquery/dist/jquery.min.js',
-       'node_modules/animsition/dist/js/animsition.min.js',
        'node_modules/bootstrap/dist/js/bootstrap.min.js',
+       'node_modules/vue/dist/vue' + (isProd ? '.min.js' : '.js'),
     ])
     .pipe(babel())
-    .pipe(gulpif(gutil.env.env == 'prod',uglify()))
+    .pipe(gulpif(isProd,uglify()))
     .pipe(concat('frontend.js'))
     .pipe(gulp.dest(dest));
 });
@@ -25,12 +26,11 @@ gulp.task('js', function () {
 gulp.task('css', function () {
     return gulp.src([
        'node_modules/bootstrap/dist/css/bootstrap.min.css',
-       'node_modules/animsition/dist/css/animsition.min.css',
        'app/Resources/assets/css/**/*.{css,scss}'
     ])
     .pipe(sass())
     .pipe(concat('frontend.css'))
-    .pipe(gulpif(gutil.env.env == 'prod', nano()))
+    .pipe(gulpif(isProd, nano()))
     .pipe(gulp.dest(dest));
     //return merge(css);
 });

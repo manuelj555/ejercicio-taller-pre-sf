@@ -22,7 +22,7 @@ class ProductController extends Controller
         $query = $em = $this->get('app.repository.product')
             ->getQueryBuilderForAll($request->query->get('search'))
             ->getQuery();
-            
+
         $query->setHydrationMode(Query::HYDRATE_ARRAY);
 
         $products = $this->get('knp_paginator')->paginate(
@@ -64,7 +64,7 @@ class ProductController extends Controller
      */
     public function editAction(Request $request, Product $product)
     {
-        $form    = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() and $form->isValid()) {
@@ -79,8 +79,23 @@ class ProductController extends Controller
         }
 
         return $this->render('product/edit.html.twig', [
-            'form' => $form->createView(),
+            'form'    => $form->createView(),
             'product' => $product,
         ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="product_delete")
+     */
+    public function deleteAction(Request $request, Product $product)
+    {
+        $this->get('app.repository.product')->remove($product);
+
+        $this->addFlash('success', sprintf(
+            'El producto con el código %s se ha eliminado con éxito!',
+            $product->getCode()
+        ));
+
+        return $this->redirectToRoute('product_list');
     }
 }
