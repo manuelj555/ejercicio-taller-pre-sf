@@ -17,7 +17,7 @@ gulp.task('js', function () {
        'node_modules/bootstrap/dist/js/bootstrap.min.js',
        'node_modules/vue/dist/vue' + (isProd ? '.min.js' : '.js'),
     ])
-    .pipe(babel())
+    .pipe(babel()).on('error', function(err){ gutil.log(err); this.emit('end'); })
     .pipe(gulpif(isProd,uglify()))
     .pipe(concat('frontend.js'))
     .pipe(gulp.dest(dest));
@@ -28,7 +28,7 @@ gulp.task('css', function () {
        'node_modules/bootstrap/dist/css/bootstrap.min.css',
        'app/Resources/assets/css/**/*.{css,scss}'
     ])
-    .pipe(sass())
+    .pipe(sass()).on('error', function(err){ gutil.log(err); this.emit('end'); })
     .pipe(concat('frontend.css'))
     .pipe(gulpif(isProd, nano()))
     .pipe(gulp.dest(dest));
