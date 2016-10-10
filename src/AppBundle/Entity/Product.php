@@ -5,8 +5,10 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\ProductCategory;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Type;
 
 /**
  * Product
@@ -33,8 +35,14 @@ class Product
      * @ORM\Column(name="code", type="string", length=100, unique=true)
      * @NotBlank(message="Por favor, indique un código")
      * @Regex(
-     *     "/^[a-z0-9\-]+$/i", 
+     *     "/^[a-z0-9\-]+$/i",
      *     message="El código no puede contener caracteres especiales ni espacios en blanco"
+     * )
+     * @Length(
+     *     min=4,
+     *     max=10,
+     *     minMessage="El código debe tener al menos 4 caracteres",
+     *     maxMessage="El código debe tener un máximo de 10 caracteres"
      * )
      */
     private $code;
@@ -44,6 +52,10 @@ class Product
      *
      * @ORM\Column(name="name", type="string", length=255)
      * @NotBlank(message="Por favor, indique un nombre")
+     * @Length(
+     *     min=4,
+     *     minMessage="El nombre debe tener al menos 4 caracteres"
+     * )
      */
     private $name;
 
@@ -76,6 +88,10 @@ class Product
      *
      * @ORM\Column(name="price", type="float")
      * @NotBlank(message="Por favor, indique un precio")
+     * @Type(
+     *     "numeric",
+     *     message="El precio debe ser un número válido"
+     * )
      */
     private $price;
 

@@ -21,7 +21,9 @@ class ProductType extends AbstractType
             ->add('description')
             ->add('brand')
             ->add('category')
-            ->add('price')
+            ->add('price', null, [
+                'invalid_message' => 'El precio debe ser un número válido'
+            ])
         ;
     }
     
